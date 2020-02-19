@@ -133,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-        activityManager.getMemoryInfo(memoryInfo);
+        if (activityManager != null) {
+            activityManager.getMemoryInfo(memoryInfo);
+        }
         DecimalFormat twoDecimalForm = new DecimalFormat("#.##");
         if (memoryInfo.lowMemory) {
             finalValue = "Low Memory..!!";
@@ -169,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-        activityManager.getMemoryInfo(memoryInfo);
+        if (activityManager != null) {
+            activityManager.getMemoryInfo(memoryInfo);
+        }
         DecimalFormat twoDecimalForm = new DecimalFormat("#.##");
         if (memoryInfo.lowMemory) {
             finalValue = "Low Memory..!!";
@@ -215,8 +219,14 @@ public class MainActivity extends AppCompatActivity {
    */
     String getNetworkType() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        String s = activeNetInfo.getTypeName();
+        NetworkInfo activeNetInfo = null;
+        if (connectivityManager != null) {
+            activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        }
+        String s = "";
+        if (activeNetInfo != null) {
+            s = activeNetInfo.getTypeName();
+        }
         return s;
     }
 
